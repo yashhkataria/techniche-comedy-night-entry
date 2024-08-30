@@ -11,7 +11,7 @@ const Form = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/api/mark-visited', {
+            const response = await fetch('https://techniche-comedy-night-entry-api.vercel.app/api/mark-visited', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
