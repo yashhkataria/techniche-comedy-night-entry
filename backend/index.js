@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
-const multer = require('multer');
-const csv = require('csv-parser');
-const fs = require('fs');
+// const multer = require('multer');
+// const csv = require('csv-parser');
+// const fs = require('fs');
 
 const corsOptions = {
     origin: "*"
 }
 
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer({ dest: 'uploads/' });
 
 app.use(cors(corsOptions));
 
