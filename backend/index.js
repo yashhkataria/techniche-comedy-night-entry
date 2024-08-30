@@ -63,41 +63,41 @@ app.post('/api/add-visitor', async (req, res) => {
     }
 });
 
-app.post('/api/upload-csv', upload.single('file'), async (req, res) => {
-    const results = [];
+// app.post('/api/upload-csv', upload.single('file'), async (req, res) => {
+//     const results = [];
     
-    if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
-    }
+//     if (!req.file) {
+//         return res.status(400).json({ error: 'No file uploaded' });
+//     }
 
-    fs.createReadStream(req.file.path)
-        .pipe(csv({
-            mapHeaders: ({ header }) => header.trim()
-        }))
-        .on('data', (data) => {
+//     fs.createReadStream(req.file.path)
+//         .pipe(csv({
+//             mapHeaders: ({ header }) => header.trim()
+//         }))
+//         .on('data', (data) => {
 
-            const email = data.email;
-            const passNumber = data.passNumber ? data.passNumber.trim() : '';
+//             const email = data.email;
+//             const passNumber = data.passNumber ? data.passNumber.trim() : '';
 
-            if (email && passNumber) {
-                results.push({ email, passNumber });
-            }
-        })
-        .on('end', async () => {
-            for (const { email, passNumber } of results) {
-                const visitor = new Visitor({ email, passNumber });
-                try {
-                    await visitor.save();
-                } catch (error) {
-                    console.error(`Error saving visitor ${email}:`, error.message);
-                }
-            }
-            res.json({ message: 'CSV processed successfully', data: results });
-        })
-        .on('error', (error) => {
-            res.status(500).json({ error: error.message });
-        });
-});
+//             if (email && passNumber) {
+//                 results.push({ email, passNumber });
+//             }
+//         })
+//         .on('end', async () => {
+//             for (const { email, passNumber } of results) {
+//                 const visitor = new Visitor({ email, passNumber });
+//                 try {
+//                     await visitor.save();
+//                 } catch (error) {
+//                     console.error(`Error saving visitor ${email}:`, error.message);
+//                 }
+//             }
+//             res.json({ message: 'CSV processed successfully', data: results });
+//         })
+//         .on('error', (error) => {
+//             res.status(500).json({ error: error.message });
+//         });
+// });
 
 app.put('/api/mark-visited', async (req, res) => {
     const { email, passNumber } = req.body;
